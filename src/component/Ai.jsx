@@ -63,15 +63,20 @@ const AiApp = () => {
 
   const generateImages = async () => {
     if (prevDate) {
-        const currentDate = new Date();
-        const timeDiff = currentDate - prevDate;
-        const secondsDiff = Math.floor(timeDiff / 1000);
-    
-        if (secondsDiff < 5000) {;
-            toast.error(`You can generate again in ${Math.max(0, 5 - Math.floor(secondsDiff / 60))} minutes`);
-            toast.info(`For error free generation change the current tab.`);
-            return;
-        }
+      const currentDate = new Date();
+      const timeDiff = currentDate - prevDate;
+      const secondsDiff = Math.floor(timeDiff / 1000);
+
+      if (secondsDiff < 5000) {
+        toast.error(
+          `You can generate again in ${Math.max(
+            0,
+            5 - Math.floor(secondsDiff / 60)
+          )} minutes`
+        );
+        toast.info(`For error free generation change the current tab.`);
+        return;
+      }
     }
     if (!prompt.trim()) {
       toast.error("Please enter a prompt");
@@ -85,11 +90,12 @@ const AiApp = () => {
       generateRandomSeeds();
     }
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 9; i++) {
       setTimeout(() => {
         fetchImage(i);
         if (i === 8) setLoading(false);
-      }, i * 5000);
+      }, 5000);
+      console.log(i);
     }
     setPrevDate(new Date());
   };
